@@ -1,0 +1,40 @@
+<html>
+<title></title>
+<body>
+<h5> Login Success</h5>
+<p>Hello, <span id="username"></span></p>
+<script>
+    var user ='{{ result | tojson | safe}}';
+    document.getElementById('username').innerHTML = user.name + " " +
+            user.phone;
+</script>
+
+<table id="overview">
+    <tr>
+        <th>Location</th>
+        <th>Temperature</th>
+    </tr>
+    <tr>
+        <td>Cylinder Top</td>
+        <td id="Cyl1"></td>
+    </tr>
+    <tr>
+        <td>Cylinder Middle</td>
+        <td id="Cyl2"></td>
+    </tr>
+    <tr>
+        <td>Cylinder Bottom</td>
+        <td id="Cyl3"></td>
+    </tr>
+    <tr>
+        <td>Boiler Room</td>
+        <td id="BRoom"></td>
+    </tr>
+	<tr>
+        <td>Boiler Room</td>
+        <td id="BRoom2"></td>
+    </tr>
+</table>
+
+</body>
+</html>
