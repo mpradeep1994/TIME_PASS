@@ -1,0 +1,68 @@
+
+Write a query to display the names of the department and the staff count in each department ordered in descending order based on department name. Give an alias to staff count as staff_count.
+
+select d.department_name, count(s.staff_id) as staff_count from department d inner join staff s 
+	on d.department_id = s.department_id
+group by d.department_name
+order by d.department_name desc
+
+Write a query to display the name of the department that has the maximum staff count order by department name.
+
+
+
+## using subquery 
+select department_name from department where  department_id in (
+	select department_id from staff geoup by  department_id
+	having count(staff_id)  in (select max(count(staff_id)) from staff  group by  department_id)
+)
+
+
+## this list all the department with max salary
+
+select d.department_name, count(s.staff_id) as staff_count from department d inner join staff s 
+	on d.department_id = s.department_id
+group by d.department_name
+having count(s.staff_id) in (select max(count(s.staff_id)) as staff_count from department dd inner join staff ss 
+	on dd.department_id = ss.department_id
+	group by dd.department_name )
+
+# if you need only one depart with max salary
+
+select d.department_name, count(s.staff_id) as staff_count from department d inner join staff s 
+	on d.department_id = s.department_id
+group by d.department_name
+order by count(s.staff_id) desc
+Limit 1;
+
+
+Write a query to display the block number in which the maximum number of departments is located.
+
+
+select department_block_number from department d 
+group by department_block_number
+having count(department_id) in (select  max(count(department_id) from department d 
+group by department_block_number )
+
+
+
+####
+
+Write a query to display the names of the staff handling more than 1 subject, ordered by name in ascending order... For this question I do not know why this query is not working... SELECT staff_name
+FROM staff a where 1<(select count(*) from subject where staff_id=a.staff_id);
+
+
+#using join
+select s.staff_name, count(sub.subject_id) from  staff s join subject sub
+on s.staff_id = sub.staff_id
+group  by s.staf_id
+having count(sub.subject_id) >1
+
+## with out join
+
+select s.staff_name, count(sub.subject_id) from  staff s join subject sub
+on s.staff_id = sub.staff_id
+
+select staff_name from staff where staff_id in(select staf_id from student
+	group  by s.staf_id
+	having count(sub.subject_id) >1
+	)
